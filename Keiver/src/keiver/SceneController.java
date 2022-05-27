@@ -13,10 +13,9 @@ public class SceneController {
 
 	private Stage stage;
 	private Scene scene;
-	private Parent root;
-
+	
 	public void switchToTableView(ActionEvent event) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("TableView.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("TableView.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
@@ -25,6 +24,14 @@ public class SceneController {
 
 	public void switchToRegistration(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("Registration.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void switchToLogin(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
