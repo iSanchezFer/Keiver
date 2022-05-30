@@ -1,6 +1,7 @@
 package keiver;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,8 @@ import javafx.stage.StageStyle;
 public class MainKeiver extends Application {
 	public static void main(String[] args) {
 		launch(args);
+		ConnectionBBDD myConnectionClass = new ConnectionBBDD();
+        Connection connection = myConnectionClass.getConnection();
 	}
 
 	@Override
@@ -25,7 +28,7 @@ public class MainKeiver extends Application {
 			// stage.setResizable(false);
 			stage.initStyle(StageStyle.UTILITY);
 			stage.setScene(scene);
-			stage.show();
+			stage.show();			
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
