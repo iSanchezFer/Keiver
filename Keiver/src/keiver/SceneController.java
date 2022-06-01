@@ -41,10 +41,10 @@ import javafx.util.Callback;
 import javafx.util.converter.BooleanStringConverter;
 
 public class SceneController {
-	public Button registerButton;
+	public Button registerButton, modifyPassword;
 	public Label login_label;
 
-	public Label register_label;
+	public Label register_label, changepass_label;
 
 	public TextField username_login;
 
@@ -93,10 +93,10 @@ public class SceneController {
 			ResultSet resultSet = pst.executeQuery();
 			while (resultSet.next()) {
 				if (resultSet.getInt(1) == 1) {
-					login_label.setText("Bienvenido");
+					login_label.setText("Welcome");
 					return true;
 				} else {
-					login_label.setText("Datos incorrectos");
+					login_label.setText("Wrong credentials");
 					username_login.setText("");
 					password_login.setText("");
 					username_login.requestFocus();
@@ -130,7 +130,7 @@ public class SceneController {
 				credentials = true;
 				registerUser();
 			} else if (!checkEmail || !checkUser) {
-				register_label.setText("Los parámetros entrados ya están en uso.");
+				register_label.setText("The credentails are already used.");
 			}
 
 			if (credentials) {
@@ -139,7 +139,7 @@ public class SceneController {
 			}
 
 		} else {
-			login_label.setText("Entra tus credenciales");
+			login_label.setText("Enter your credentials");
 		}
 	}
 
@@ -151,40 +151,43 @@ public class SceneController {
 		boolean credentials = false;
 		boolean checkPassword = false;
 
-		if (password_register1.getText().isBlank() == false && password_register1.getText().isBlank() == false
-				&& password_register2.getText().isBlank() == false) {
+		if (current_password.getText().isBlank() == false && new_password.getText().isBlank() == false
+				&& confirm_newpass.getText().isBlank() == false) {
 			String currentPass = current_password.getText();
 			String newpassword = new_password.getText();
 			String confirmnewpass = confirm_newpass.getText();
 
 			checkPassword = checkPassword(newpassword, confirmnewpass);
-
-			if (checkPassword && currentPass == password_loginbbdd) {
+			if ((checkPassword == true) && (currentPass.equals(password_loginbbdd))
+					&& !newpassword.equals(password_loginbbdd)) {
 				credentials = true;
 				updateUser();
+
+			} else {
+				changepass_label.setText("Wrong credentials");
 			}
 			if (credentials) {
-				Stage stage = (Stage) registerButton.getScene().getWindow();
+				Stage stage = (Stage) modifyPassword.getScene().getWindow();
 				stage.close();
 			}
 
 		} else {
-			login_label.setText("Enter your credentials");
+			changepass_label.setText("Fill all the fields ");
 		}
 	}
 
 	private void updateUser() {
 		ConnectionBBDD databaseConnection = new ConnectionBBDD();
 		Connection connectionDB = databaseConnection.getConnection();
-		String insertFields = "UPDATE user set password_acc = '";
-		String insertValues = confirm_newpass + "')";
-		String insertToRegister = insertFields + insertValues;
+		String newpassword = new_password.getText();
 
 		try {
-
-			Statement statement = connectionDB.createStatement();
-			statement.executeUpdate(insertToRegister);
-			register_label.setText("User updated");
+			PreparedStatement pst = connectionDB
+					.prepareStatement("UPDATE user set password_acc = ? WHERE idUser_acc = ? ");
+			pst.setString(1, newpassword);
+			pst.setInt(2, getIdUserAccount());
+			pst.executeUpdate();
+			password_loginbbdd = newpassword;
 
 		} catch (SQLException e) {
 			Logs.appendToFile(e);
@@ -236,7 +239,6 @@ public class SceneController {
 		if (password.equals(confirmPassword)) {
 			return true;
 		} else {
-			register_label.setText("Las contrasenas son diferentes");
 			return false;
 		}
 
@@ -389,7 +391,7 @@ public class SceneController {
 				try {
 					switchToUserAccount(event);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					Logs.appendToFile(e);
 					e.printStackTrace();
 				}
 
@@ -403,7 +405,7 @@ public class SceneController {
 					switchToAddRecords(event);
 					switchToTableView(event);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					Logs.appendToFile(e);
 					e.printStackTrace();
 				}
 
@@ -417,21 +419,21 @@ public class SceneController {
 				try {
 					switchToModifyRecords(event);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					Logs.appendToFile(e);
 					e.printStackTrace();
 				}
 
 			}
 		});
 		deleteRecord.setOnAction(new EventHandler<ActionEvent>() {
-			Record tmp = myTable.getSelectionModel().getSelectedItem();
 
 			@Override
 			public void handle(ActionEvent arg0) {
 				try {
+
 					switchToDeleteRecords(event);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					Logs.appendToFile(e);
 					e.printStackTrace();
 				}
 
@@ -451,8 +453,7 @@ public class SceneController {
 	}
 
 	private TableView<Record> myTable = new TableView<Record>();
-
-	Record tmp;
+	static Record tmp;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void showTable() {
@@ -625,12 +626,31 @@ public class SceneController {
 		}
 	}
 
-	public void deleteButtonClicked() {
-		myTable.getItems().removeAll(myTable.getSelectionModel().getSelectedItems());
+	// Not Working
+	public void deleteRecords() {
+
+		myTable.getItems().removeAll(myTable.getSelectionModel().getSelectedItem());
+		try {
+			ConnectionBBDD databaseConnection = new ConnectionBBDD();
+			Connection connectionDB = databaseConnection.getConnection();
+			PreparedStatement pst = connectionDB.prepareStatement(
+					"DELETE FROM record WHERE user set password_acc = ? WHERE idUser = ? AND title = ? AND username = ? AND email = ? AND password = ? AND app = ? AND description = ? ");
+
+			pst.setInt(1, getIdUserAccount());
+			pst.setString(2, tmp.getTitle());
+			pst.setString(3, tmp.getUsername());
+			pst.setString(4, tmp.getEmail());
+			pst.setString(5, tmp.getPassword());
+			pst.setString(6, tmp.getApp());
+			pst.setString(7, tmp.getDescription());
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			Logs.appendToFile(e);
+		}
 	}
 
 	public void updateRecord(ActionEvent event) throws ClassNotFoundException, SQLException {
-
+		// TODO
 	}
 
 	public int getIdUserAccount() {
