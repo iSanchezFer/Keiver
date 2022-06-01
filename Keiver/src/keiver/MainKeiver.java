@@ -13,9 +13,16 @@ import javafx.stage.Stage;
 import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
 
+//Main Class que controla la aplicacion
+/**
+ * @author isanchez
+ * @author croldan
+ * @version 1.0 Fase Beta
+ *
+ */
 public class MainKeiver extends Application {
 	public static void main(String[] args) {
-
+		// Codigo para evitar que inicien la app 2 veces
 		String appId = "myapplicationid";
 		boolean alreadyRunning;
 		try {
@@ -23,7 +30,7 @@ public class MainKeiver extends Application {
 			alreadyRunning = false;
 		} catch (AlreadyLockedException e) {
 			alreadyRunning = true;
-			Logs.appendToFile(e);
+			Logs.appendToFile(e); // Errores a archivo de log
 		}
 		if (!alreadyRunning) {
 			launch(args);
@@ -32,19 +39,21 @@ public class MainKeiver extends Application {
 		}
 	}
 
+	/**
+	 * Metodo de JavaFx para iniciar la aplicacion
+	 */
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml")); //Establecer el login como ventana
 			Scene scene = new Scene(root);
-			stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png"))); //Cargar el icono de la app
 			stage.setTitle("Keiver - Key Saver");
 			stage.setResizable(false);
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
 			Logs.appendToFile(e);
-			e.printStackTrace();
 
 		}
 	}

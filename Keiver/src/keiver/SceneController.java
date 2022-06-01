@@ -40,6 +40,13 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.BooleanStringConverter;
 
+/**
+ * @author isanchez
+ * @author croldan
+ * @version 1.0 Fase Beta
+ *
+ *          Controlador de escenas
+ */
 public class SceneController {
 	public Button registerButton, modifyPassword;
 	public Label login_label;
@@ -63,6 +70,11 @@ public class SceneController {
 	private static Stage stage;
 	private static Scene scene;
 
+	/**
+	 * Comprovar las crecenciales al clicar el boton de login
+	 * 
+	 * @param e Evento del raton al clicar el boton de login
+	 */
 	public void loginButtonOnAction(ActionEvent e) {
 
 		if (username_login.getText().isBlank() == false && password_login.getText().isBlank() == false) {
@@ -71,7 +83,6 @@ public class SceneController {
 					switchToTableView(e);
 				} catch (IOException e1) {
 					Logs.appendToFile(e1);
-					e1.printStackTrace();
 				}
 			}
 
@@ -80,6 +91,11 @@ public class SceneController {
 		}
 	}
 
+	/**
+	 * Connexion con base de datos para comprovar el usuario
+	 * 
+	 * @return Boolean segun exista o no el usuario
+	 */
 	public boolean login() {
 		ConnectionBBDD databaseConnection = new ConnectionBBDD();
 		Connection connectionDB = databaseConnection.getConnection();
@@ -105,13 +121,17 @@ public class SceneController {
 			}
 		} catch (SQLException e) {
 			Logs.appendToFile(e);
-			System.out.println(e.getMessage());
-			System.out.println("Cause" + e.getCause());
 		}
 		return false;
 
 	}
 
+	/**
+	 * Metodo usado al clicar en el boton de registar que identifica las
+	 * credenciales y en caso de estar correcto registra al usuario
+	 * 
+	 * @param e Evento del raton al clicar el boton de register
+	 */
 	public void registerButtonOnAction(ActionEvent e) {
 		boolean credentials = false;
 		boolean checkUser = false;
@@ -147,6 +167,12 @@ public class SceneController {
 	public PasswordField confirm_newpass;
 	public PasswordField current_password;
 
+	/**
+	 * Metodo para que el usuario pueda cambiar su contraseña siguiendo unas normas
+	 * basicas
+	 * 
+	 * @param e Accion del raton al aplicar los cambios de la contraseña
+	 */
 	public void changeUserPass(ActionEvent e) {
 		boolean credentials = false;
 		boolean checkPassword = false;
@@ -176,6 +202,9 @@ public class SceneController {
 		}
 	}
 
+	/**
+	 * Metodo que llama a la base de datos para actualizar la contraseña del user
+	 */
 	private void updateUser() {
 		ConnectionBBDD databaseConnection = new ConnectionBBDD();
 		Connection connectionDB = databaseConnection.getConnection();
@@ -191,12 +220,16 @@ public class SceneController {
 
 		} catch (SQLException e) {
 			Logs.appendToFile(e);
-			System.out.println(e.getMessage());
-			System.out.println("Cause" + e.getCause());
 		}
 
 	}
 
+	/**
+	 * Metodo que comprueba si exista el username en la base de datos para
+	 * registrarlo
+	 * 
+	 * @return Boolean segun el usuario exista o no
+	 */
 	private boolean checkUser() {
 		ConnectionBBDD databaseConnection = new ConnectionBBDD();
 		Connection connectionDB = databaseConnection.getConnection();
@@ -209,12 +242,16 @@ public class SceneController {
 			}
 		} catch (SQLException e) {
 			Logs.appendToFile(e);
-			e.printStackTrace();
 		}
 		return true;
 
 	}
 
+	/**
+	 * Metodo que comprueba si exista el email en la base de datos para registrarlo
+	 * 
+	 * @return Boolean segun el email exista o no
+	 */
 	private boolean checkEmail() {
 		ConnectionBBDD databaseConnection = new ConnectionBBDD();
 		Connection connectionDB = databaseConnection.getConnection();
@@ -227,13 +264,17 @@ public class SceneController {
 			}
 		} catch (SQLException e) {
 			Logs.appendToFile(e);
-			e.printStackTrace();
 		}
 
 		return true;
 
 	}
 
+	/**
+	 * Metodo que comprueba si las contraseñas de registro son iguales
+	 * 
+	 * @return Boolean segun la contraseñas sean identicas o no
+	 */
 	private boolean checkPassword(String password, String confirmPassword) {
 
 		if (password.equals(confirmPassword)) {
@@ -244,6 +285,9 @@ public class SceneController {
 
 	}
 
+	/**
+	 * Metodo que comunica con la base de datos para registrar al usuario
+	 */
 	private void registerUser() {
 		ConnectionBBDD databaseConnection = new ConnectionBBDD();
 		Connection connectionDB = databaseConnection.getConnection();
@@ -263,24 +307,39 @@ public class SceneController {
 
 		} catch (SQLException e) {
 			Logs.appendToFile(e);
-			System.out.println(e.getMessage());
-			System.out.println("Cause" + e.getCause());
 		}
 	}
 
+	/**
+	 * Metodo que cambia a la escena de registrarse
+	 * 
+	 * @param event Evento del mouse al clicar a register
+	 * @throws IOException
+	 */
 	public void switchToRegistration(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Registration.fxml"));
-		Parent root = fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setResizable(false);
-		stage.setOpacity(1);
-		stage.setTitle("Keiver - User Account");
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
-		stage.setScene(new Scene(root, 463, 469));
-		stage.showAndWait();
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Registration.fxml"));
+
+			Parent root = fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setResizable(false);
+			stage.setOpacity(1);
+			stage.setTitle("Keiver - User Account");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+			stage.setScene(new Scene(root, 463, 469));
+			stage.showAndWait();
+		} catch (IOException e) {
+			Logs.appendToFile(e);
+		}
 	}
 
+	/**
+	 * Metodo que cambia a la escena de loggearse
+	 * 
+	 * @param event Evento al registrar al usuario
+	 * @throws IOException
+	 */
 	public void switchToLogin(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -289,6 +348,12 @@ public class SceneController {
 		stage.show();
 	}
 
+	/**
+	 * Metodo que cambia a la escena de confirmacion de borrar registros
+	 * 
+	 * @param event Evento del mouse al clicar delete records
+	 * @throws IOException
+	 */
 	public void switchToDeleteRecords(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DeleteRecord.fxml"));
 		Parent root = fxmlLoader.load();
@@ -302,6 +367,12 @@ public class SceneController {
 		stage.showAndWait();
 	}
 
+	/**
+	 * Metodo que cambia a la escena de confirmacion de modificar registros
+	 * 
+	 * @param event Evento del mouse al clicar modify records
+	 * @throws IOException
+	 */
 	public void switchToModifyRecords(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DeleteRecord.fxml"));
 		Parent root = fxmlLoader.load();
@@ -315,6 +386,12 @@ public class SceneController {
 		stage.showAndWait();
 	}
 
+	/**
+	 * Metodo que cambia a la escena de añadir registros
+	 * 
+	 * @param event Evento del mouse al clicar create records
+	 * @throws IOException
+	 */
 	public void switchToAddRecords(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateRecord.fxml"));
 		Parent root = fxmlLoader.load();
@@ -328,6 +405,12 @@ public class SceneController {
 		stage.showAndWait();
 	}
 
+	/**
+	 * Metodo creado para ir a la escena de modificacion del perfil de usuario
+	 * 
+	 * @param event Evento del mouse al clicar modify user
+	 * @throws IOException
+	 */
 	public void switchToUserAccount(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ModifyUser.fxml"));
 		Parent root = fxmlLoader.load();
@@ -341,6 +424,12 @@ public class SceneController {
 		stage.showAndWait();
 	}
 
+	/**
+	 * Metodo creado para ir a la escena de generacion de contraseñas automatica
+	 * 
+	 * @param event Evento del mouse al clicar generate password
+	 * @throws IOException
+	 */
 	public void generatePassword(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Generator.fxml"));
 		Parent root = fxmlLoader.load();
@@ -355,8 +444,16 @@ public class SceneController {
 
 	}
 
+	// Archivo css del programa que modifica los botones de la escena del tableview
 	public static final String MainStyle = "keiver/style.css";
 
+	/**
+	 * Metodo creado para ir a la escena de tableview y crear la ventana y la escena
+	 * para ello
+	 * 
+	 * @param event Evento realizado al loggearse el usuario con sus credenciales
+	 * @throws IOException
+	 */
 	public void switchToTableView(ActionEvent event) throws IOException {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		BorderPane border = new BorderPane();
@@ -384,6 +481,8 @@ public class SceneController {
 		applyChanges.prefWidth(25);
 		deleteRecord.prefWidth(25);
 		modifyUser.prefWidth(25);
+
+		// Boton que va al a escena para poder modificar la contraseña del usuario
 		modifyUser.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -392,11 +491,11 @@ public class SceneController {
 					switchToUserAccount(event);
 				} catch (IOException e) {
 					Logs.appendToFile(e);
-					e.printStackTrace();
 				}
 
 			}
 		});
+		// Boton que lleva a la escena de crear nuevos registros
 		addRecords.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -406,13 +505,14 @@ public class SceneController {
 					switchToTableView(event);
 				} catch (IOException e) {
 					Logs.appendToFile(e);
-					e.printStackTrace();
 				}
 
 			}
 		});
+		// Boton que pide confirmacion para poder modificar los registros
 		applyChanges.setOnAction(new EventHandler<ActionEvent>() {
-			Record changes = myTable.getSelectionModel().getSelectedItem();
+			// TODO
+			// Record changes = myTable.getSelectionModel().getSelectedItem();
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -420,11 +520,11 @@ public class SceneController {
 					switchToModifyRecords(event);
 				} catch (IOException e) {
 					Logs.appendToFile(e);
-					e.printStackTrace();
 				}
 
 			}
 		});
+		// Boton que pide confirmacion para poder borrar los registros
 		deleteRecord.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -434,16 +534,17 @@ public class SceneController {
 					switchToDeleteRecords(event);
 				} catch (IOException e) {
 					Logs.appendToFile(e);
-					e.printStackTrace();
 				}
 
 			}
 		});
-		stage.setWidth(736);
-		stage.setResizable(false);
+		stage.setWidth(736); // Ancho de la ventana
+		stage.setResizable(false); // No se puede redimensionar
 		stage.setScene(scene);
 		showTable();
 		stage.show();
+
+		// Poner la ventana en el medio de la pantalla
 		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
 		double x = bounds.getMinX() + (bounds.getWidth() - scene.getWidth()) * 0.5;
 		double y = bounds.getMinY() + (bounds.getHeight() - scene.getHeight()) * 0.5;
@@ -452,9 +553,14 @@ public class SceneController {
 
 	}
 
+	// Tableview
 	private TableView<Record> myTable = new TableView<Record>();
+	// Objeto de pruebas
 	static Record tmp;
 
+	/**
+	 * Metodo para enseñar la tabla y cargar los datos a través de la base de datos
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void showTable() {
 		ObservableList<Record> data = FXCollections.observableArrayList();
@@ -467,12 +573,15 @@ public class SceneController {
 				Record rec = new Record(rs.getString("title"), rs.getString("username"), rs.getString("email"),
 						rs.getString("password"), rs.getString("app"), rs.getString("description"),
 						rs.getBoolean("favorite"));
+				data.add(rec);
+
+				// Pruebas
 				tmp = new Record(rs.getString("title"), rs.getString("username"), rs.getString("email"),
 						rs.getString("password"), rs.getString("app"), rs.getString("description"),
 						rs.getBoolean("favorite"));
-				data.add(rec);
 			}
 
+			// Columnas de la tabla
 			TableColumn title_column = new TableColumn("Title");
 			TableColumn username_column = new TableColumn("Username");
 			TableColumn email_column = new TableColumn("Email");
@@ -484,13 +593,15 @@ public class SceneController {
 			myTable.setEditable(true);
 
 			title_column.setCellValueFactory(new PropertyValueFactory<Record, String>("title"));
+			// Hacer que la tabla sea editable
 			title_column.setCellFactory(TextFieldTableCell.forTableColumn());
+			// Hacer que el registro se quede guardado en el tableview (no BBDD)
 			title_column.setOnEditCommit(new EventHandler<CellEditEvent<Record, String>>() {
 
 				@Override
 				public void handle(CellEditEvent<Record, String> event) {
 					Record record = event.getRowValue();
-					record.setTitle(event.getNewValue());
+					record.setTitle(event.getNewValue()); // Coger valor nuevo
 
 				}
 			});
@@ -566,6 +677,8 @@ public class SceneController {
 
 				}
 			});
+
+			// Boton de edit funcional en una proxima fase del programa
 			Callback<TableColumn<Record, String>, TableCell<Record, String>> cellFactory = param -> {
 				final TableCell<Record, String> cell = new TableCell<Record, String>() {
 					@Override
@@ -583,6 +696,7 @@ public class SceneController {
 							editButton.setGraphic(imageview);
 							editButton.setPadding(Insets.EMPTY);
 							editButton.setOnAction(event -> {
+								@SuppressWarnings("unused")
 								Record rec = getTableView().getItems().get(getIndex());
 
 							});
@@ -622,11 +736,13 @@ public class SceneController {
 			myTable.setItems(data);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logs.appendToFile(e);
 		}
 	}
 
-	// Not Working
+	/**
+	 * Metodo para borrar los registros selecionados // Not Working
+	 */
 	public void deleteRecords() {
 
 		myTable.getItems().removeAll(myTable.getSelectionModel().getSelectedItem());
@@ -649,10 +765,24 @@ public class SceneController {
 		}
 	}
 
+	/**
+	 * Metodo hecho para que al modificar los datos en la tabla se pida confirmacion
+	 * de lo cambiado //TODO
+	 * 
+	 * @param event Evento de mouse al intentar aplicar los cambios a la BBDD
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void updateRecord(ActionEvent event) throws ClassNotFoundException, SQLException {
 		// TODO
 	}
 
+	/**
+	 * Metodo para conseguir la id del usuario que ha entrado en la app y relacionar
+	 * sus registros
+	 * 
+	 * @return INT : idUser_acc --> ID de la cuenta del usuario
+	 */
 	public int getIdUserAccount() {
 		try {
 			ConnectionBBDD databaseConnection = new ConnectionBBDD();
@@ -669,11 +799,11 @@ public class SceneController {
 			}
 		} catch (SQLException e) {
 			Logs.appendToFile(e);
-			e.printStackTrace();
 		}
 		return -1;
 	}
 
+	// Variables de FXML de la escena de añadir datos (RECORDS)
 	@FXML
 	public TextField app_record;
 
@@ -695,6 +825,14 @@ public class SceneController {
 	@FXML
 	public TextField username_record;
 
+	/**
+	 * Metodo creado a traves de FXML para coger los datos de los registros a
+	 * añadir. Llama a insert() para crearlos en la BBDD
+	 * 
+	 * @see insert()
+	 * 
+	 * @param event Evento de mouse al darle click a añadir registro
+	 */
 	@FXML
 	void addRecords(ActionEvent event) {
 		String title = title_record.getText();
@@ -720,6 +858,9 @@ public class SceneController {
 
 	}
 
+	/**
+	 * Meter nuevos registros en la BBDD creador por addRecords()
+	 */
 	private void insert() {
 
 		try {
