@@ -35,3 +35,11 @@
     -fx-border-radius:9px;
     -fx-border-width: 1.5px;
 }
+#modifyUser{
+    -fx-background-color:   #faf289;
+    -fx-border-color: black;
+    -fx-background-radius: 10px;
+    -fx-border-radius:9px;
+    -fx-border-width: 1.5px;
+}
+
