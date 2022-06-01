@@ -1,0 +1,36 @@
+Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 15:56:25.534Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 15:57:05.921 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 16:29:36.768 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 16:35:44.666 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 16:35:50.21 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 16:37:05.497 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 16:37:18.383 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 16:40:57.657 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 16:45:54.923 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 16:46:01.108 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 17:36:04.079 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 17:36:05.463 Unknown column 'idUseraccount' in 'where clause'
+2022-06-01 17:36:12.442 Cannot invoke "javafx.scene.control.TableColumn.setCellValueFactory(javafx.util.Callback)" because "this.title_column" is null
+2022-06-01 17:36:12.467 Unknown column 'idUseraccount' in 'where clause'
+2022-06-01 17:36:12.646 Unknown column 'idUseraccount' in 'where clause'
+2022-06-01 17:37:29.778 Unknown column 'idUseraccount' in 'where clause'
+2022-06-01 17:39:19.063 No value specified for parameter 2
+2022-06-01 17:40:02.296 No value specified for parameter 2
+2022-06-01 17:40:11.823 No value specified for parameter 2
+2022-06-01 17:41:18.25 No value specified for parameter 2
+2022-06-01 17:42:29.324 No value specified for parameter 2
+2022-06-01 19:16:11.545 Lock for ID "myapplicationid" has already been taken
+2022-06-01 19:36:31.5 Field 'favorite' doesn't have a default value
+2022-06-01 19:36:31.634 Field 'favorite' doesn't have a default value
+2022-06-01 19:36:31.786 Field 'favorite' doesn't have a default value
+2022-06-01 19:36:31.929 Field 'favorite' doesn't have a default value
+2022-06-01 19:36:32.062 Field 'favorite' doesn't have a default value
+2022-06-01 19:36:33.341 Field 'favorite' doesn't have a default value
+2022-06-01 19:36:34.179 Field 'favorite' doesn't have a default value
+2022-06-01 19:38:18.219 Field 'favorite' doesn't have a default value
+2022-06-01 19:38:51.459 Field 'favorite' doesn't have a default value
+2022-06-01 19:39:32.691 Field 'favorite' doesn't have a default value
+2022-06-01 19:48:31.117 Field 'favorite' doesn't have a default value
+2022-06-01 21:04:03.017 Lock for ID "myapplicationid" has already been taken
+2022-06-01 22:05:26.592 Lock for ID "myapplicationid" has already been taken

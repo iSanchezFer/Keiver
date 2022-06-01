@@ -1,0 +1,37 @@
+#favbutton{
+    -fx-background-color:  #a3a0a0;
+    -fx-border-color:   #595757;
+    -fx-background-radius: 50px;
+    -fx-border-radius:50px;
+    -fx-border-width: 1.5px;
+}
+
+#favbutton:selected {
+    -fx-background-color:  #f5b240;
+    -fx-border-color: #c48f33;
+}
+
+#addRecords {
+    -fx-background-color:  #98f5c2;
+    -fx-border-color: black;
+    -fx-background-radius: 10px;
+    -fx-border-radius:9px;
+    -fx-border-width: 1.5px;
+}
+
+#deleteRecord {
+    -fx-background-color:   #fa8292;
+    -fx-border-color: black;
+    -fx-background-radius: 10px;
+    -fx-border-radius:9px;
+    -fx-border-width: 1.5px;
+}
+
+
+#applyChanges {
+    -fx-background-color:   #faf889;
+    -fx-border-color: black;
+    -fx-background-radius: 10px;
+    -fx-border-radius:9px;
+    -fx-border-width: 1.5px;
+}
