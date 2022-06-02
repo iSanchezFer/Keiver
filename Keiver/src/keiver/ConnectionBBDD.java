@@ -7,6 +7,7 @@ import java.io.*;
  * 
  * @author isanchez
  * @author croldan
+ * @version 1.0 Fase Beta
  *
  */
 public class ConnectionBBDD {

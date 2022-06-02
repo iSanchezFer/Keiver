@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
  * 
  * @author isanchez
  * @author croldan
+ * @version 1.0 Fase Beta
  *
  */
 public class Record {

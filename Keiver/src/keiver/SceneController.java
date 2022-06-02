@@ -456,6 +456,7 @@ public class SceneController {
 	 */
 	public void switchToTableView(ActionEvent event) throws IOException {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		// Variables de la escena
 		BorderPane border = new BorderPane();
 		HBox hbox1 = new HBox();
 		HBox hbox2 = new HBox();
@@ -468,14 +469,17 @@ public class SceneController {
 		modifyUser.setId("modifyUser");
 		Button deleteRecord = new Button("Delete Records");
 		deleteRecord.setId("deleteRecord");
+		// Colocar HBOX en el BorderPane
 		border.setLeft(hbox1);
 		border.setCenter(hbox2);
 		border.setRight(hbox3);
+		// Colocar TableView en el BorderPane
 		border.setBottom(myTable);
 		hbox1.getChildren().addAll(addRecords);
 		hbox2.getChildren().addAll(applyChanges, modifyUser);
 		hbox3.getChildren().addAll(deleteRecord);
 		scene = new Scene(border);
+		// Importamos los estilos para los botones
 		scene.getStylesheets().add(MainStyle);
 		addRecords.prefWidth(25);
 		applyChanges.prefWidth(25);
@@ -592,6 +596,7 @@ public class SceneController {
 			TableColumn edit_column = new TableColumn("Edit");
 			myTable.setEditable(true);
 
+			// Relacionar la columna con los datos de la base de datos
 			title_column.setCellValueFactory(new PropertyValueFactory<Record, String>("title"));
 			// Hacer que la tabla sea editable
 			title_column.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -714,6 +719,8 @@ public class SceneController {
 
 			edit_column.setCellFactory(cellFactory);
 
+			// Sirve para poner una amplitud variable dentro de cada pantalla que no se
+			// pueda modificar por el usuario
 			title_column.prefWidthProperty().bind(myTable.widthProperty().multiply(0.10));
 			title_column.setResizable(false);
 			username_column.prefWidthProperty().bind(myTable.widthProperty().multiply(0.10));
@@ -731,8 +738,10 @@ public class SceneController {
 			edit_column.prefWidthProperty().bind(myTable.widthProperty().multiply(0.06));
 			edit_column.setResizable(false);
 
+			// Añade las columnas configuradas anteriormente
 			myTable.getColumns().addAll(title_column, username_column, email_column, password_column, app_column,
 					description_column, favorite_column, edit_column);
+			// Añade los datos a la tabla
 			myTable.setItems(data);
 
 		} catch (SQLException e) {

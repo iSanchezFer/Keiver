@@ -8,6 +8,7 @@ import java.util.Random;
  * 
  * @author isanchez
  * @author croldan
+ * @version 1.0 Fase Beta
  *
  */
 public class Generator {
@@ -114,7 +115,7 @@ public class Generator {
 	/**
 	 * Setter de los numeros
 	 * 
-	 * @param caps (si quiere o no numeros)
+	 * @param numbers (si quiere o no numeros)
 	 */
 	public void setNumbers(boolean numbers) {
 		this.numbers = numbers;
@@ -132,7 +133,7 @@ public class Generator {
 	/**
 	 * Setter de los caracteres no alfanumericos
 	 * 
-	 * @param caps (si quiere o no caracteres no alfanumericos)
+	 * @param nonAlphChar (si quiere o no caracteres no alfanumericos)
 	 */
 	public void setNonAlphChar(boolean nonAlphChar) {
 		this.nonAlphChar = nonAlphChar;
